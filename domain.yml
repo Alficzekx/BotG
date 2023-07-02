@@ -1,0 +1,118 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - shop_list
+  - vege1
+  - stop1
+  - frut1
+  - meat1
+  - dairy1
+  - prod1
+  - yess
+  - noos
+  - product_rating
+  - ocena
+  - return_policy
+  - popular_products
+  - num
+  - hour
+  - pom
+
+ 
+
+responses:
+
+  # utter_greet:
+  # - text: "Hey! How are you?"
+
+
+
+  utter_greet:
+  - text: "Hi! How can I help you?"
+
+ 
+  utter_hour:
+  - text: "Opening hours"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Thanks, I think I helped as far as possible, happy shopping in our store"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_shop_list:
+  - text: "Okay, I'll help you build your shopping list. What are you looking for?"
+
+  utter_vege1:
+  - text: "Select vegetables"
+
+  utter_stop1:
+  - text: "Thanks"
+
+  utter_frut1:
+  - text: "Select fruits"
+
+  utter_meat1:
+  - text: "Select meat"
+
+  utter_dairy1:
+  - text: "Select dairy"
+
+  utter_prod1:
+  - text: "Thanks for your chooise"
+
+  utter_yess:
+  - text: "Select a category"
+
+  utter_heatlhy:
+  - text: "Would you like to eat something healthy?"
+
+  utter_noos:
+  - text: "Thanks, if you want, we have a choise:"
+
+  utter_product_rating:
+  - text: "Very bad , Not bad , Good , Very nice"
+
+  utter_ocena:
+  - text: "Thanks for the rating"
+
+  utter_return_policy:
+  - text: "Enter your order number"
+
+  utter_pom:
+  - text: "What do you think about our shop?"
+
+  utter_popular_products:
+  - text: "Popular Products"
+
+  utter_num:
+  - text: "Thanks, expect a refund"
+  # We have 4 departments in the store with:\n
+  # Vegetables, Fruits, Dairy and Meat."
+
+# actions:
+#   - utter_show_buttons
+#   - utter_option_1
+#   - utter_option_2
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
