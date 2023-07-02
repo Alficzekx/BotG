@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link id="one" rel="stylesheet" type="text/css" href="">
+	<link id="two" rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link id="three" rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<style>
+		body {
+			font-family: "Segoe UI", Arial, sans-serif;
+			background-color: #FFFFFF;
+			margin-left: auto;
+			margin-right: 0;
+		}
+
+		h1 {
+			background-color: #009688;
+			width: 95%;
+			max-width: 600px;
+			color: white;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 0;
+			margin-top: 0;
+			text-align: center;
+			font-size: 40px;
+			padding: 10px;
+			margin-right: 0;
+		}
+
+		h3 {
+			color: black;
+			font-size: 20px;
+			margin-top: 3px;
+			text-align: center;
+		}
+
+		#container {
+			height: 80%;
+			margin-left: auto;
+			margin-right: 0;
+		}
+
+		#chatbox {
+			background-color: #F5FFFA;
+			padding: 10px;
+			margin-left: auto;
+			margin-right: 0;
+			width: 95%;
+			max-width: 600px;
+			height: 500px;
+			overflow-y: auto;
+			margin-top: 25px;
+			text-align: right;
+		}
+
+		#chatbox::-webkit-scrollbar {
+			display: none;
+		}
+
+		#chatbox {
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+		}
+
+		#userInput {
+			position: fixed;
+			bottom: 20px;
+			left: auto;
+			right: 0;
+			margin-left: auto;
+			margin-right: 0;
+			width: 95%;
+			max-width: 600px;
+			margin-top: 60px;
+			vertical-align: bottom;
+		}
+
+		#textInput {
+			height: 38px;
+			width: 80%;
+			padding-left: 10px;
+			float: left;
+			border: none;
+			border-bottom: 3px solid #009688;
+			font-family: inherit;
+			font-size: 17px;
+		}
+
+		#buttonInput {
+			background-color: #009688;
+			width: 15%;
+			float: right;
+			padding: 12px 16px;
+			font-family: inherit;
+			font-size: 17px;
+			color: white;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		#buttonInput:hover {
+			opacity: 0.8;
+			border-width: 1px;
+			border-color: #009688;
+		}
+
+		.userText {
+			color: white;
+			font-family: inherit;
+			font-size: 17px;
+			text-align: right;
+			line-height: 30px;
+		}
+
+		.userText span {
+			background-color: #009688;
+			padding: 10px;
+			border-radius: 5px;
+		}
+
+		.botText {
+			color: white;
+			font-family: inherit;
+			font-size: 17px;
+			text-align: left;
+			line-height: 30px;
+		}
+
+		.botText span {
+			background-color: #EF5350;
+			padding: 10px;
+			border-radius: 5px;
+		}
+
+		.response-buttons {
+			text-align: center;
+			margin-top: 10px;
+		}
+
+		.button {
+			background-color: #009688;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px 20px;
+			margin: 5px;
+			cursor: pointer;
+		}
+
+		.button:hover {
+			opacity: 0.8;
+		}
+		#imageContainer {
+			float: left;
+			width: 40%;
+			margin-left: 10px;
+			margin-right: 10px;
+			text-align: center;
+		}
+		#imageContainerr {
+			float: left;
+			width: 40%;
+			margin-left: 10px;
+			margin-right: 10px;
+			text-align: center;
+			clear: left;
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Shop ChatBot</h1>
+	<div id="container">
+		<div id="imageContainer"></div>
+		<div id="imageContainerr"></div>
+		<div id="chatbox">
+			<p class="botText"><span>Hi! I'm ShopBot. I'm here to help you organize your shopping.</span></p>
+			<p class="botText"><span>We can make your shopping list together.</span></p>
+			<p class="botText"><span>Please Ask.</span></p>
+		</div>
+		<div id="userInput">
+			<input id="textInput" type="text" name="msg" placeholder="Message">
+			<button id="buttonInput" type="submit"><i class="fa fa-send"></i></button>
+		</div>
+		
+
+		
+		<script>
+			function getBotResponse() {
+				var rawText = $("#textInput").val();
+				var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+				$("#textInput").val("");
+				$("#chatbox").append(userHtml);
+				$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+				
+
+
+				var regex = /^\d{4}$/;
+                if (regex.test(rawText)) {
+                    // Jeśli wprowadzony tekst jest 4-cyfrowym kodem, wyświetl go w czacie
+                    var codeHtml = '<p class="botText"><span>Your claim code is ' + rawText + '  Thank you for reporting </span></p>';
+                    $("#chatbox").append(codeHtml);
+                    $("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+                    return;
+				}
+					$.get("/get", { text: rawText }).done(function(data) {
+					var botHtml = '<p class="botText"><span>' + data.response + '</span></p>'; // Wybierz pole response z obiektu data
+					$("#chatbox").append(botHtml);
+					$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+
+					
+
+					// Sprawdź, czy wiadomość zawiera przyciski
+					if (data.buttons) {
+						showButtons(data.buttons);
+					}
+					
+				// Sprawdź, czy wiadomość zawiera słowo wygenerowane przez chat
+					if (data.response.includes("Okay, I'll help you build your shopping list. What are you looking for?")) {
+						sendMultipleResponses();
+					}
+					if (data.response.includes("Thanks for your chooise")) {
+						sendMultipleResponses1();
+						hideImage();
+						hideImage1();
+					}
+					if (data.response.includes("Thanks, if you want, we have a choise:")) {
+						sendMultipleResponses2();
+					}
+					
+					if (data.response.includes("Select vegetables")) {
+						showImage();
+						showImage9();
+					}
+					if (data.response.includes("Popular Products")) {
+						showImage6();
+					}
+					if (data.response.includes("Select fruits")) {
+						showImage1();
+						showImage4();
+					}
+					if (data.response.includes("Opening hours")) {
+						showImage8();
+					}
+					if (data.response.includes("Select meat")) {
+						showImage2();
+						showImage5();
+					}
+					if (data.response.includes("Select dairy")) {
+						showImage3();
+						showImage7();
+					}
+					if (rawText.includes("back")) {
+						hideImage();
+						return;
+					}
+					// if (rawText.includes("koniec")) {
+					// 	ShopList();
+					// 	return;
+					// }
+					           // Dodaj produkty do listy zakupów
+
+
+
+
+				});
+						
+			}
+			$("#textInput").keypress(function(e) {
+				if(e.which == 13) {
+					getBotResponse();
+				}
+			});
+			$("#buttonInput").click(function() {
+				getBotResponse();
+			});
+
+
+
+
+			// Funkcja wysyłająca wiadomość do chatbota po kliknięciu przycisku
+			function sendMessage(message) {
+				var userHtml = '<p class="userText"><span>' + message + '</span></p>';
+				$("#textInput").val("");
+				$("#chatbox").append(userHtml);
+				$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+				$.get("/get", { text: message }).done(function(data) {
+					var botHtml = '<p class="botText"><span>' + data.response + '</span></p>'; // Wybierz pole response z obiektu data
+					$("#chatbox").append(botHtml);
+					$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+
+					// Sprawdź, czy wiadomość zawiera przyciski
+					if (data.buttons) {
+						showButtons(data.buttons);
+					}
+
+					// Sprawdź, czy wiadomość zawiera słowo wygenerowane przez chat
+					if (data.response.includes("Okay, I'll help you build your shopping list. What are you looking for?")) {
+						var superHtml = '<p class="botText"><span>Super!</span></p>';
+						$("#chatbox").append(superHtml);
+						$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+					}
+										// Sprawdź, czy wiadomość zawiera słowo wygenerowane przez chat
+					if (data.response.includes("Okay, I'll help you build your shopping list. What are you looking for?")) {
+						var superHtml = '<p class="botText"><span>Super!</span></p>';
+						$("#chatbox").append(superHtml);
+						$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+					}
+				});
+			}
+
+			function sendMultipleResponses() {
+                var responses = ["We have 4 departments in the store with:", "Vegetables", "Fruits", "Dairy", "Meat"];
+                var delay = 1000; // Opóźnienie między kolejnymi odpowiedziami (w milisekundach)
+                var index = 0;
+
+                  function sendResponse() {
+                      if (index < responses.length) {
+                          setTimeout(function() {
+                              var botHtml = '<p class="botText"><span>' + responses[index] + '</span></p>';
+                              $("#chatbox").append(botHtml);
+                              $("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+                              index++;
+                              sendResponse();
+                          }, delay);
+                     }
+                 }
+
+                 sendResponse();
+            }
+			function sendMultipleResponses1() {
+                var responses = ["Maybe something more?"];
+                var delay = 1000; // Opóźnienie między kolejnymi odpowiedziami (w milisekundach)
+                var index = 0;
+
+                  function sendResponse1() {
+                      if (index < responses.length) {
+                          setTimeout(function() {
+                              var botHtml = '<p class="botText"><span>' + responses[index] + '</span></p>';
+                              $("#chatbox").append(botHtml);
+                              $("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+                              index++;
+                              sendResponse1();
+                          }, delay);
+                     }
+                 }
+
+                 sendResponse1();
+            }
+			function sendMultipleResponses2() {
+                var responses = ["1) Returning the goods","2) Popular goods","3) Give a rating to the Chatbot","4) Opening hours"];
+                var delay = 1000; // Opóźnienie między kolejnymi odpowiedziami (w milisekundach)
+                var index = 0;
+
+                  function sendResponse2() {
+                      if (index < responses.length) {
+                          setTimeout(function() {
+                              var botHtml = '<p class="botText"><span>' + responses[index] + '</span></p>';
+                              $("#chatbox").append(botHtml);
+                              $("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+                              index++;
+                              sendResponse2();
+                          }, delay);
+                     }
+                 }
+
+                 sendResponse2();
+            }
+			
+			function showImage() {
+				var imageUrl = "https://cdn.galleries.smcloud.net/t/galleries/gf-Gu9E-d1oW-vCx3_warzywa-wartosci-odzywcze-kalorie-dlaczego-warto-jesc-warzywa-1920x1080-nocrop.jpg"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function showImage1() {
+				var imageUrl = "https://hips.hearstapps.com/hmg-prod/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function showImage2() {
+				var imageUrl = "https://www.affinityhealth.co.za/wp-content/uploads/2023/03/2.png"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function showImage3() {
+				var imageUrl = "https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-1foodgroups_dairy_detailfeature.jpg?sfvrsn=23510b0_6"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function showImage4() {
+				var imageUrl = "https://scontent.xx.fbcdn.net/v/t1.15752-9/356154570_1467377907341985_3791356874714594331_n.png?_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=tFdumllRYLoAX_s4BZP&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQvXXeF5-ufGRK0Ph8iJdvwL9Xxh8tdTlCGxucdQFa9rg&oe=64BC4713"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainerr").html(imageHtml);
+            }
+			function showImage5() {
+				var imageUrl = "https://scontent.ftrn3-1.fna.fbcdn.net/v/t1.15752-9/354205278_572073511667178_2714308724122178533_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=EYRtS3rxbrYAX_p4ZWx&_nc_ht=scontent.ftrn3-1.fna&oh=03_AdTZNN8PbBnUkCCghdgeTiTVEsZwBDtGDwWhj5CII2sHtg&oe=64BC7C48"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainerr").html(imageHtml);
+            }
+			function showImage7() {
+				var imageUrl = "https://scontent.ftrn3-1.fna.fbcdn.net/v/t1.15752-9/354280348_6819545888114400_1106554406571950213_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=vvfDWrckMuIAX9Jkp0-&_nc_ht=scontent.ftrn3-1.fna&oh=03_AdSmw8fIuICIfxFX1C2Q6KNcPx9bvb-yNSGEnj5HFfjsEw&oe=64BC74B9"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainerr").html(imageHtml);
+            }
+			function showImage9() {
+				var imageUrl = "https://scontent.ftrn3-1.fna.fbcdn.net/v/t1.15752-9/353820223_1031091938055535_1075189849505230024_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=r5Za8BabBlsAX9q4ilb&_nc_ht=scontent.ftrn3-1.fna&oh=03_AdRf0lNQtYvIR_dDpHSm3M07ZuzOYapHt6Zs0Tv142eKeA&oe=64BC63CF"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainerr").html(imageHtml);
+            }
+			function showImage6() {
+				var imageUrl = "https://scontent.xx.fbcdn.net/v/t1.15752-9/353795420_1287051408902673_2804583084721811095_n.jpg?stp=dst-jpg_s403x403&_nc_cat=105&ccb=1-7&_nc_sid=aee45a&_nc_ohc=bUsiB8EE6LIAX81a6Pr&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdS-qZy3h3mBkYNfXZEif2g9_WOToEUVMEY8N8qReECB9g&oe=64BC4EB7"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function showImage8() {
+				var imageUrl = "https://files.ekmcdn.com/gemmaduffy01744/images/shop-opening-hours-sign-34929-p.jpg?w=1000&h=1000&v=685e5ab7-67d6-43b8-a877-dced65d52572"; // Zmień ten adres URL na właściwy link do obrazu
+				var imageHtml = '<div style="clear:both;"><img src="' + imageUrl + '" alt="Vegetables" style="width: 100%;"></div>';
+				$("#imageContainer").html(imageHtml);
+            }
+			function hideImage() {
+				$("#imageContainer").empty();
+			}
+			function hideImage1() {
+				$("#imageContainerr").empty();
+			}
+
+
+		</script>
+	</div>
+</body>
+</html>
+
+
+

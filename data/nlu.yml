@@ -1,0 +1,283 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - Cześć
+    - Witaj 
+    - Hello
+    - Ciao
+
+
+
+- intent: vege1
+  examples: |
+    - vege
+    - vegetables
+    - vegetable
+    - I want to eat vegetables
+    - v
+    - I'm looking for vegetables
+    - please vegetables
+    - please vege
+    - start with vegetables
+    - show me vegetables
+    - I need vegetables 
+    - I want vegetables 
+    - I want to buy vegetables
+
+
+- intent: frut1
+  examples: |
+    - fruit
+    - fruits
+    - I want to eat fruit
+    - I'm looking for fruit
+    - please fruit
+    - please fruits
+    - start with fruit
+    - show me fruit
+    - I need fruit
+    - I want fruit
+    - I want to buy fruit
+
+- intent: dairy
+  examples: |
+    - dairy
+    - I want to eat dairy
+    - I'm looking for dairy
+    - please dairy
+    - start with dairy
+    - show me dairy
+    - I need dairy
+    - I want dairy
+    - I want to buy dairy
+
+- intent: meat
+  examples: |
+    - meat
+    - meats
+    - I want to eat meat
+    - I'm looking for meat
+    - please meat
+    - please meats
+    - start with meat
+    - show me meat
+    - I need meat
+    - I want meat
+    - I want to buy meat
+
+
+- intent: stop1
+  examples: |
+    - back
+    - Back
+    - before
+
+
+
+- intent: prod1
+  examples: |
+    - orange
+    - apples
+    - banana
+    - pork
+    - chiken
+    - beef
+    - milk
+    - cheese
+    - cream
+    - tomatoes
+    - carrot
+    - cabbadge
+
+- intent: yess
+  examples: |
+    - yes
+    - y
+    
+
+- intent: noos
+  examples: |
+    - n
+    - No thanks
+    
+- intent: product_rating
+  examples: |
+    - product rating
+    - customer rating
+    - user rating
+    - rating score
+    - average rating
+    - star rating
+    - customer reviews
+    - product feedback
+    - rating and reviews
+    
+- intent: ocena
+  examples: |
+    - very bad
+    - not bad
+    - good
+    - very nice
+
+- intent: popular_products
+  examples: |
+    - popular products
+    - bestsellers
+    - top-selling items
+    - most popular items
+    - trending products
+    - customer favorites
+    - hot products
+    - popular choices
+
+
+- intent: return_policy
+  examples: |
+    - return policy
+    - product return
+    - return process
+    - return procedure
+    - how to return
+    - returning items
+    - can I return
+    - return guidelines
+
+
+- intent: num
+  examples: |
+    - 0000
+    - 1111
+    - 2222
+    - 6734
+    - 7343
+    - 1263
+
+
+  
+- intent: hour
+  examples: |
+    - hours
+    - hour
+    - opening hours
+    - operation hours
+    - when does it open
+    - when does it close
+    - what are the hours of operation
+    - what time does it open
+    - what time does it close
+    - working hours
+    - business hours
+
+
+
+- intent: shop_list
+  examples: |
+    - Shop
+    - Do the list
+    - Help me make a shopping list
+    - list
+    - List
+    - Do the list
+    - make a list
+    - let's make a list
+    - shopping
+    - Make list
+    - Search for products
+    - Can I make a list?
+
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: pom
+  examples: |
+    - nice
+    - really nice
+    - I love it
+    - amazing
+    - like it 
+    - good 
+    - Ok
+    - ok
+
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

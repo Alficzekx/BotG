@@ -1,0 +1,173 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: list 1
+  steps:
+  - intent: shop_list
+  - action: utter_shop_list
+  - intent: prod1
+  - action: utter_prod1
+  - intent: yess
+  - action: utter_yess
+  - intent: deny
+  - action: utter_goodbye
+  - intent: popular_products
+  - action: utter_popular_products
+  - intent: product_rating
+  - action: utter_product_rating
+
+- story: list 2
+  steps:
+  - intent: shop_list
+  - action: utter_shop_list
+  - intent: prod1
+  - action: utter_prod1
+  - intent: noos
+  - action: utter_noos
+  - intent: popular_products
+  - action: utter_popular_products
+  - intent: product_rating
+  - action: utter_product_rating
+  - intent: ocena
+  - action: utter_ocena
+  - intent: return_policy
+  - action: utter_return_policy
+  - intent: deny
+  - action: utter_goodbye
+
+
+- story: list heatlhy
+  steps:
+  - intent: shop_list
+  - action: utter_shop_list
+  - intent: prod1
+  - action: utter_prod1
+  - intent: meat1
+  - action: utter_heatlhy
+  - intent: yess
+  - action: utter_yess
+  - intent: prod1
+  - action: utter_prod1
+  - intent: deny
+  - action: utter_goodbye
+
+
+- story: pomer
+  steps:
+  - intent: shop_list
+  - action: utter_shop_list
+  - intent: prod1
+  - action: utter_prod1
+  - intent: noos
+  - action: utter_pom
+  - intent: pom
+  - action: utter_goodbye
+
+
+- story: veges
+  steps:
+  - intent: vege1
+  - action: utter_vege1
+  - intent: prod1
+  - action: utter_prod1
+
+- story: fruits
+  steps:
+  - intent: frut1
+  - action: utter_frut1
+  - intent: prod1
+  - action: utter_prod1
+
+- story: meat
+  steps:
+  - intent: meat1
+  - action: utter_meat1
+  - intent: prod1
+  - action: utter_prod1
+
+- story: dairy
+  steps:
+  - intent: dairy1
+  - action: utter_dairy1
+  - intent: prod1
+  - action: utter_prod1
+
+- story: stop
+  steps:
+  - intent: stop1
+  - action: utter_stop1
+
+- story: prod
+  steps:
+  - intent: prod1
+  - action: utter_prod1
+
+- story: num1
+  steps:
+  - intent: num
+  - action: utter_num
+
+- story: yees
+  steps:
+  - intent: yess
+  - action: utter_yess
+
+
+- story: nos
+  steps:
+  - intent: noos
+  - action: utter_noos
+
+- story: product_rating1
+  steps:
+  - intent: product_rating
+  - action: utter_product_rating
+
+- story: ocen1
+  steps:
+  - intent: ocena
+  - action: utter_ocena
+
+- story: return_policy1
+  steps:
+  - intent: return_policy
+  - action: utter_return_policy
+
+- story: popular_products1
+  steps:
+  - intent: popular_products
+  - action: utter_popular_products
+
+- story: hour1
+  steps:
+  - intent: hour
+  - action: utter_hour
+
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
